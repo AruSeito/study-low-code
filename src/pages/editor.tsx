@@ -19,16 +19,19 @@ const EditorPage = ()=>{
     const isChange = e.dataTransfer.getData('change');
     if(isChange){
       const index = e.dataTransfer.getData('id');
-      const component = comps[index];
+      // TODO: 简写需要优化
+      const component = deepCopy(comps[index]);
       component.style.top = e.nativeEvent.offsetY;
       component.style.left = e.nativeEvent.offsetX;
-      const newComps = comps.map((comp:any)=>{
-        if (index === comp.id) {
+      // TODO: 简写需要优化
+      const newComps = comps.map((comp: any) => {
+        if (index == comp.id) {
           return component;
         }
         return comp;
-      })
-     updateComps(newComps);
+      });
+      console.log(JSON.stringify(newComps));
+      updateComps([...newComps]);
     }else{
       const component = deepCopy(options[e.dataTransfer.getData('id')]);
       component.style.top = e.nativeEvent.offsetY;

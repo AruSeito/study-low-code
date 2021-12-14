@@ -7,7 +7,7 @@ interface IProps {
 const Button:React.FC<IProps> = (props) => {
   const {style,label} = props;
   return (
-    <button className="absolute border" style={{ ...style }}>
+    <button className="border w-full h-full" style={{ ...style }}>
       {label}
     </button>
   );
