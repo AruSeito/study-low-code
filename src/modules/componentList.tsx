@@ -5,14 +5,13 @@ const LeftCompList: React.FC = () => {
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     if (!e) return;
     const id = (e.target as HTMLDivElement).dataset.id as string;
-    console.log('drag start ... ', e);
     e.dataTransfer.setData('id', id);
   };
   return (
     <div onDragStart={handleDragStart}>
       {componentList.map((comp) => (
         <section draggable={true} className="item" data-id={comp.key} key={comp.key}>
-          <span>{comp.label}</span>
+          <span>{<comp.c style={comp.style} label={comp.label}/>}</span>
         </section>
       ))}
     </div>

@@ -16,13 +16,28 @@ const EditorPage = ()=>{
   const handleDrop = useCallback((e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(e.dataTransfer.getData('id'));
-    const component = deepCopy(options[e.dataTransfer.getData('id')]);
-    component.style.top = e.clientX;
-    component.style.left = e.clientY;
-    component.id = hash();
-    console.log(component);
-    updateComps([...comps, component]);
+    const isChange = e.dataTransfer.getData('change');
+    if(isChange){
+      const index = e.dataTransfer.getData('id');
+      const component = comps[index];
+      component.style.top = e.nativeEvent.offsetY;
+      component.style.left = e.nativeEvent.offsetX;
+      const newComps = comps.map((comp:any)=>{
+        if (index === comp.id) {
+          return component;
+        }
+        return comp;
+      })
+     updateComps(newComps);
+    }else{
+      const component = deepCopy(options[e.dataTransfer.getData('id')]);
+      component.style.top = e.nativeEvent.offsetY;
+      component.style.left = e.nativeEvent.offsetX;
+      component.id = hash();
+
+      updateComps([...comps, component]);
+    }
+    
   }, [comps, updateComps]);
 
   return (
@@ -33,7 +48,7 @@ const EditorPage = ()=>{
           <LeftCompList />
         </aside>
         <div
-          className="flex-[2] h-full"
+          className="flex-[2] h-full relative"
           onDragOver={handleDragOver}
           onDrop={handleDrop}
         >

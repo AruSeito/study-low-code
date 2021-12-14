@@ -1,6 +1,6 @@
 let id = 0;
 
-export const hash = () => ++id;
+export const hash = () => id++;
 
 export const deepCopy = (target:any) => {
   if (target && typeof target === 'object') {

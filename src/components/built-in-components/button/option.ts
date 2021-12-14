@@ -4,7 +4,7 @@ import Button from './index';
 // 用来描述你的视图信息/行为（业务逻辑）
 export const option = {
   c: Button,
-  key: 'v-btn',
+  key: 'my-btn',
   label: '按钮',
   icon: '',
   desc: '这是一个按钮',
