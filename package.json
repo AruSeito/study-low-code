@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@arco-design/web-react": "^2.27.2",
     "@craco/craco": "^6.4.3",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.7",
@@ -43,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "@arco-design/webpack-plugin": "^1.7.0",
     "windicss-webpack-plugin": "^1.6.0"
   }
 }
