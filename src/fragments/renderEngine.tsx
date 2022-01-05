@@ -1,36 +1,24 @@
 import React, { ReactNode } from 'react';
 
 
-// 从props传进来的
-const fakeJsonScheme = {
-  page: {
-    type: 'Container',
-    children: [
-      {
-        type: 'Container',
-        children: [
-          {
-            type: 'button',
-          },
-          { type: 'input' },
-        ],
-      },
-    ],
-  },
-};
+interface IProps{
+  scheme:Record<string,any>
+}
 
-const RenderEngine: React.FC = () => {
+const RenderEngine: React.FC<IProps> = (props) => {
+  const {scheme} = props;
   const startRender = (
     section: Record<string, any>,
     children?: ReactNode | null,
   ) => {
     const type = section.type;
     // 直接渲染
+    console.log(type);
     return <div></div>
   };
 
   const renderChildren = (section:Record<string,any>)=>{
-    let nodeArray = section.children || ([] as any).concat([section]);
+    let nodeArray = section.children || ([] as any).concat(section);
 
     return nodeArray.map((node:any,idx:number)=>{
       return renderComponents(node)
@@ -53,7 +41,7 @@ const RenderEngine: React.FC = () => {
     return <div className='root'>{renderComponents(page)}</div>;
   };
 
-  return renderRoot(fakeJsonScheme);
+  return renderRoot(scheme);
 };
 
 export default RenderEngine;

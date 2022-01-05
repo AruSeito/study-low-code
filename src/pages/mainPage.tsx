@@ -1,10 +1,29 @@
 import { Grid } from '@arco-design/web-react';
 import React from 'react';
+import RenderEngine from '../fragments/renderEngine';
 
 const Row = Grid.Row;
 const Col = Grid.Col;
 
-  const components = ['CButton','CInput'];
+const components = ['CButton','CInput'];
+
+  // 从props传进来的
+const fakeJsonScheme = {
+  page: {
+    type: 'Container',
+    children: [
+      {
+        type: 'Container',
+        children: [
+          {
+            type: 'button',
+          },
+          { type: 'input' },
+        ],
+      },
+    ],
+  },
+};
 
 const MainPage: React.FC = () => {
   return (
@@ -23,7 +42,9 @@ const MainPage: React.FC = () => {
             </div>
           </Col>
           <Col span={16}>
-            <div className="stage h-[90vh] border-1 border-gray-500">画布</div>
+            <div className="stage h-[90vh] border-1 border-gray-500">
+              <RenderEngine scheme={fakeJsonScheme} />
+            </div>
           </Col>
           <Col span={4}>
             <div className="config-panel h-[90vh] border-1 border-gray-500">
