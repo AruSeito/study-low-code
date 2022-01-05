@@ -1,9 +1,4 @@
-import React from "react";
+import CButton from "./cButton";
+import CInput from "./cInput";
 
-
-const TestComponents = ()=>{
-
-  return <div>test</div>
-}
-
-export default TestComponents;
+export {CButton,CInput};
