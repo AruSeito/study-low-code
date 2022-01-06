@@ -15,16 +15,15 @@ const fakeJsonScheme = {
         type: 'Container',
         children: [
           {
-            type: 'button',
+            type: 'CButton',
           },
-          { type: 'input' },
+          { type: 'CInput' },
         ],
       },
     ],
   },
 };
 
-const componentsStack = ['CButton', 'CInput'];
 
 const MainPage: React.FC = () => {
   const [components, updateComponents] = useState<React.FC[]>([
@@ -73,13 +72,13 @@ const MainPage: React.FC = () => {
               onDrop={onHandleDropContainer}
               onDragOver={onHandleDragOver}
             >
-              {/* <RenderEngine scheme={fakeJsonScheme} />
-               */}
-              {components.map((component) => (
+              <RenderEngine scheme={fakeJsonScheme} />
+              
+              {/* {components.map((component) => (
                 <li className="border-1 border-gray-900 my-[2px] mx-[5px] px-0 py-[10px]">
                   {component}
                 </li>
-              ))}
+              ))} */}
             </div>
           </Col>
           <Col span={4}>

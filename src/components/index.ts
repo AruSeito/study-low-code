@@ -1,7 +1,13 @@
 import CButton from "./cButton";
+import Container from "./Container";
 import CInput from "./cInput";
-import parserButton from "./parser-button";
+import ParserButton from "./parser-button";
+import ParserInput from "./parser-input";
 
-export const componentList = [CButton,CInput];
+export const componentList = [CButton, CInput, Container];
 
-export const parserList = [parserButton,]
+export const parserList = {
+  CButton: ParserButton,
+  CInput: ParserInput,
+  Container: Container,
+};

@@ -1,39 +1,45 @@
 import React, { ReactNode } from 'react';
+import { parserList } from '../components';
 
-
-interface IProps{
-  scheme:Record<string,any>
+interface IProps {
+  scheme: Record<string, any>;
 }
 
 const RenderEngine: React.FC<IProps> = (props) => {
-  const {scheme={}} = props;
+  const { scheme = {} } = props;
   const startRender = (
     section: Record<string, any>,
     children?: ReactNode | null,
   ) => {
-    const type = section.type;
+    // TODOS: 类型需要完善一下暂时先都用any 这么处理一下吧。目前还没决定dsl要怎么搞，只是有个大概模子。
+    const type = section.type as 'CButton' | 'CInput';
+    const RenderMod = parserList[type];
     // 直接渲染
     console.log(type);
-    return <div></div>
+    console.log('renderType', RenderMod);
+    if (RenderMod) {
+      return <RenderMod>{children}</RenderMod>;
+    }
+    return null;
   };
 
-  const renderChildren = (section:Record<string,any>)=>{
+  const renderChildren = (section: Record<string, any>) => {
     let nodeArray = section.children || ([] as any).concat(section);
 
-    return nodeArray.map((node:any,idx:number)=>{
-      return renderComponents(node)
-    })
-  }
+    return nodeArray.map((node: any, idx: number) => {
+      return renderComponents(node);
+    });
+  };
 
   // 渲染组件
   const renderComponents = (section: Record<string, any>) => {
     // 取出children
     let children = null;
-    if(section.children){
+    if (section.children) {
       children = renderChildren(section.children);
     }
 
-    return startRender(section,children);
+    return startRender(section, children);
   };
 
   // 渲染根节点
@@ -41,7 +47,7 @@ const RenderEngine: React.FC<IProps> = (props) => {
     // 全局配置可以在这操作
     const page = scheme.page;
 
-    return <div className='root'>{renderComponents(page)}</div>;
+    return <div className="root">{renderComponents(page)}</div>;
   };
 
   return renderRoot(scheme);
