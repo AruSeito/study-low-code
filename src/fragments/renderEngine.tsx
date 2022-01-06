@@ -6,7 +6,7 @@ interface IProps{
 }
 
 const RenderEngine: React.FC<IProps> = (props) => {
-  const {scheme} = props;
+  const {scheme={}} = props;
   const startRender = (
     section: Record<string, any>,
     children?: ReactNode | null,
@@ -27,15 +27,18 @@ const RenderEngine: React.FC<IProps> = (props) => {
 
   // 渲染组件
   const renderComponents = (section: Record<string, any>) => {
+    // 取出children
     let children = null;
     if(section.children){
       children = renderChildren(section.children);
     }
+
     return startRender(section,children);
   };
 
   // 渲染根节点
   const renderRoot = (scheme: Record<string, any>) => {
+    // 全局配置可以在这操作
     const page = scheme.page;
 
     return <div className='root'>{renderComponents(page)}</div>;
