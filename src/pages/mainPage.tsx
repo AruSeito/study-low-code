@@ -34,7 +34,7 @@ const MainPage: React.FC = () => {
           </Col>
           <Col span={16}>
             <div
-              className="stage h-[90vh] border-1 border-gray-500"
+              className="stage h-[90vh] border-1 border-gray-500 overflow-scroll"
               onDrop={onHandleDropContainer}
               onDragOver={onHandleDragOver}
             >
