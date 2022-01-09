@@ -1,43 +1,25 @@
 import { Grid } from '@arco-design/web-react';
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import RenderEngine from '../fragments/renderEngine';
 import { componentList } from '../components';
+import { addNodeIntoRoot, selectJSONScheme } from '../redux/reducers/editSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Row = Grid.Row;
 const Col = Grid.Col;
 
-// 从props传进来的
-const fakeJsonScheme = {
-  page: {
-    type: 'Container',
-    children: [
-      {
-        type: 'Container',
-        children: [
-          {
-            type: 'CButton',
-          },
-          { type: 'CInput' },
-        ],
-      },
-    ],
-  },
-};
-
-
 const MainPage: React.FC = () => {
-  const [components, updateComponents] = useState<React.FC[]>([
-    ...componentList,
-  ]);
+  const [selectType, updateSelectType] = useState<string>('');
 
-  const selectType = useRef<React.FC>()
-  const onHandleDrag = (item: React.FC) => {
-    selectType.current = item;
+  const currentJson = useSelector(selectJSONScheme);
+  const dispatch = useDispatch();
+
+  const onHandleDrag = (item: Record<string, any>) => {
+    updateSelectType(item.name);
   };
 
   const onHandleDropContainer = (e: React.DragEvent<HTMLDivElement>) => {
-    console.log(e);
-    updateComponents([...components, selectType.current!]);
+    dispatch(addNodeIntoRoot(selectType));
   };
 
   const onHandleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -52,15 +34,16 @@ const MainPage: React.FC = () => {
             <div className=" h-[90vh] border-1 border-gray-500">
               <div className="component-stack">物料堆</div>
               <ul>
-                {componentList.map((Component) => (
+                {componentList.map((info) => (
                   <li
                     draggable
                     onDrag={() => {
-                      onHandleDrag(Component);
+                      onHandleDrag(info);
                     }}
                     className="border-1 border-gray-900 my-[2px] mx-[5px] px-0 py-[10px]"
+                    key={info.name}
                   >
-                    <Component />
+                    <info.Component />
                   </li>
                 ))}
               </ul>
@@ -72,13 +55,7 @@ const MainPage: React.FC = () => {
               onDrop={onHandleDropContainer}
               onDragOver={onHandleDragOver}
             >
-              <RenderEngine scheme={fakeJsonScheme} />
-              
-              {/* {components.map((component) => (
-                <li className="border-1 border-gray-900 my-[2px] mx-[5px] px-0 py-[10px]">
-                  {component}
-                </li>
-              ))} */}
+              <RenderEngine scheme={currentJson} addNode={selectType} />
             </div>
           </Col>
           <Col span={4}>

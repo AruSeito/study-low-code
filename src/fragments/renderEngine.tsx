@@ -3,22 +3,27 @@ import { parserList } from '../components';
 
 interface IProps {
   scheme: Record<string, any>;
+  addNode?: string;
 }
 
 const RenderEngine: React.FC<IProps> = (props) => {
-  const { scheme = {} } = props;
+  const { scheme = {}, addNode } = props;
+
   const startRender = (
     section: Record<string, any>,
     children?: ReactNode | null,
   ) => {
     // TODOS: 类型需要完善一下暂时先都用any 这么处理一下吧。目前还没决定dsl要怎么搞，只是有个大概模子。
-    const type = section.type as 'CButton' | 'CInput';
+    const type = section.type as 'CButton' | 'CInput' | 'Container';
+    const { componentId } = section;
     const RenderMod = parserList[type];
     // 直接渲染
-    console.log(type);
-    console.log('renderType', RenderMod);
     if (RenderMod) {
-      return <RenderMod>{children}</RenderMod>;
+      return (
+        <RenderMod jsonScheme={section} addNode={addNode} key={componentId}>
+          {children}
+        </RenderMod>
+      );
     }
     return null;
   };
@@ -46,7 +51,6 @@ const RenderEngine: React.FC<IProps> = (props) => {
   const renderRoot = (scheme: Record<string, any>) => {
     // 全局配置可以在这操作
     const page = scheme.page;
-
     return <div className="root">{renderComponents(page)}</div>;
   };
 
