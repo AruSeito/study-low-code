@@ -5,6 +5,7 @@ import { addNodeIntoRoot, selectJSONScheme } from '../redux/reducers/editSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { EditorContext } from '../context/editorContext';
 import ComponentStack from '../fragments/componentStack';
+import ConfigPanel from '../fragments/configPanel';
 
 const Row = Grid.Row;
 const Col = Grid.Col;
@@ -44,6 +45,7 @@ const MainPage: React.FC = () => {
           <Col span={4}>
             <div className="config-panel h-[90vh] border-1 border-gray-500">
               配置栏
+              <ConfigPanel />
             </div>
           </Col>
         </Row>

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { addNodeIntoContainer } from '../redux/reducers/editSlice';
 import Container from './Container';
+import { EditorContext } from '../context/editorContext';
+
 
 interface IProps {
   jsonScheme: Record<string, any>;
@@ -12,6 +14,8 @@ const ParserContainer: React.FC<IProps> = (props) => {
   const { jsonScheme, addNode } = props;
 
   const dispatch = useDispatch();
+
+  const { updateSelectedType } = useContext(EditorContext);
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.stopPropagation();
@@ -28,11 +32,20 @@ const ParserContainer: React.FC<IProps> = (props) => {
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
+
+  const handleOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+    console.log("click");
+    // 这个有点问题，最好通过enum来读。
+    updateSelectedType('Container');
+  };
+
   return (
     <Container
       {...props}
       handleDrop={handleDrop}
       handleDragOver={handleDragOver}
+      handleOnClick={handleOnClick}
     >
       {props.children}
     </Container>
