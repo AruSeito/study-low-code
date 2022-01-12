@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 
-export const EditorContext = React.createContext<any>([]);
+interface IContext {
+  addType: string;
+  updateAddType: React.Dispatch<React.SetStateAction<string>>;
+}
+const defaultValue = {
+  addType: '',
+  updateAddType: () => {},
+};
+
+export const EditorContext = React.createContext<IContext>(defaultValue);
 
 export const EditorContextProvider: React.FC = (props) => {
-  const [selectType, updateSelectType] = useState<string>('');
+  const [addType, updateAddType] = useState<string>('');
 
   const value = {
-    selectType,
-    updateSelectType,
+    addType,
+    updateAddType,
   };
   return (
     <EditorContext.Provider value={value}>

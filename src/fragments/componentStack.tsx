@@ -3,10 +3,10 @@ import { componentList } from '../components';
 import { EditorContext } from '../context/editorContext';
 
 const ComponentStack: React.FC = () => {
-  const { updateSelectType } = useContext(EditorContext);
+  const { updateAddType } = useContext(EditorContext);
 
   const onHandleDrag = (item: Record<string, any>) => {
-    updateSelectType(item.name);
+    updateAddType(item.name);
   };
   return (
     <>

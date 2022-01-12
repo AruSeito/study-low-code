@@ -10,13 +10,13 @@ const Row = Grid.Row;
 const Col = Grid.Col;
 
 const MainPage: React.FC = () => {
-  const { selectType } = useContext(EditorContext);
+  const { addType } = useContext(EditorContext);
 
   const currentJson = useSelector(selectJSONScheme);
   const dispatch = useDispatch();
 
   const onHandleDropContainer = (e: React.DragEvent<HTMLDivElement>) => {
-    dispatch(addNodeIntoRoot(selectType));
+    dispatch(addNodeIntoRoot(addType));
   };
 
   const onHandleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -38,7 +38,7 @@ const MainPage: React.FC = () => {
               onDrop={onHandleDropContainer}
               onDragOver={onHandleDragOver}
             >
-              <RenderEngine scheme={currentJson} addNode={selectType} />
+              <RenderEngine scheme={currentJson} addNode={addType} />
             </div>
           </Col>
           <Col span={4}>
