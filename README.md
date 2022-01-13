@@ -1,46 +1,69 @@
-# Getting Started with Create React App
+# low-code
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 使用说明
 
-## Available Scripts
+1. `git clone https://github.com/AruSeito/study-low-code.git` 克隆该项目
 
-In the project directory, you can run:
+2. 根目录执行`npm install`安装依赖
 
-### `npm start`
+3. `npm run start` 运行程序
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+4. localhost:3000 即可查看
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 扩展说明
 
-### `npm test`
+### 组件扩展
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. 在`src/components`下增加`parser-xxxx.tsx`来转换自己的插件。参数只需要传进来`jsonScheme`
 
-### `npm run build`
+2. 在`src/components/index.ts`下增加解析器（后续可能会优化成自动导入）
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```js
+// jsonScheme格式
+jsonScheme = {
+  "page": {
+    "type": "Container", //根容器
+    "children": [
+      {
+        "type": "Container", // 类型
+        "props":{} // 传到组件上的参数
+        "children": [  // 子类
+          {
+            "type": "CButton",
+          },
+          { 
+            "type": "CInput" 
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 配置面板扩展
 
-### `npm run eject`
+待优化，目前需要每种类型搞一个tsx文件，后续会优化成只需要写json传入就渲染指定的。
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## TODOS
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [x] 物料堆 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- [x] 画布/渲染引擎
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- [x] 配置面板
 
-## Learn More
+- [x] 拖拽物料堆到画布
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [ ] 画布内组件的拖拽
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- [ ] 拖拽时位置高亮
+
+- [ ] 选中时边框高亮
+
+- [ ] 配置面板json化
+
+## 过程记录
+
+[实现简易的可视化拖动生成页面](https://aruseito.github.io/article/71eb139c/)
