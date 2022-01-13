@@ -12,7 +12,6 @@ interface IProps {
 
 const ParserContainer: React.FC<IProps> = (props) => {
   const { jsonScheme, addNode } = props;
-
   const dispatch = useDispatch();
 
   const { updateSelectedType } = useContext(EditorContext);
@@ -34,10 +33,11 @@ const ParserContainer: React.FC<IProps> = (props) => {
   };
 
   const handleOnClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.preventDefault();
+    e.stopPropagation();
+    const {type} = jsonScheme;
     console.log("click");
     // 这个有点问题，最好通过enum来读。
-    updateSelectedType('Container');
+    updateSelectedType(type);
   };
 
   return (

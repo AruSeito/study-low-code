@@ -50,10 +50,23 @@ export const editSlice = createSlice({
         targetNode.children.push({ type: addType });
       }
     },
+    changeNodeProps:(state,action)=>{
+      const { targetComponentId, propKey,propValue } = action.payload;
+      const { JSONScheme } = state;
+      const _page = JSONScheme.page;
+      const targetNode = findCompById(_page, targetComponentId);
+      if(targetNode){
+        if(!targetNode.props){
+          targetNode.props= {};
+        }
+        targetNode.props[propKey] = propValue;
+      }
+    }
   },
 });
 
-export const { addNodeIntoRoot, addNodeIntoContainer } = editSlice.actions;
+export const { addNodeIntoRoot, addNodeIntoContainer, changeNodeProps } =
+  editSlice.actions;
 
 export const selectJSONScheme = (state: RootState) => state.edit.JSONScheme;
 
